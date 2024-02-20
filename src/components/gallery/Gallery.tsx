@@ -20,7 +20,7 @@ const Gallery: React.FC = () => {
   }, []);
 
   const settings = {
-    dots: true, 
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -28,8 +28,17 @@ const Gallery: React.FC = () => {
     autoplay: false,
     autoplaySpeed: 2000,
     cssEase: "linear",
-    afterChange: (current: number) => setCurrentSlide(current + 1), 
+    afterChange: (current: number) => setCurrentSlide((current % images.length) + 1),
     responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        }
+      },
       {
         breakpoint: 768,
         settings: {
@@ -47,9 +56,9 @@ const Gallery: React.FC = () => {
       <Typography variant="h3" gutterBottom id='gallery' className='section-title'>
         Gallery
       </Typography>
-      <div className="gallery-counter">
+      <Typography variant='h5' className="gallery-counter">
         {currentSlide} / {images.length}
-      </div>
+      </Typography>
       <Slider {...settings} className='gallery-slider'>
         {images.map((image, index) => (
           <div key={index}>
